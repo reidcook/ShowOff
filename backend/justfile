@@ -1,0 +1,6 @@
+# Setup backend
+# Prerequisites - linux & python
+setup:
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  $HOME/.local/bin/uv venv
+  uv sync
