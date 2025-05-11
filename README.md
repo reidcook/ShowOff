@@ -17,8 +17,8 @@ A social media platform where people can show off cool stuff!
 - **Discoverability**: Some way to discover new projects? Don't know in what way yet though!
 
 ## Technologies Used
-- **Frontend**: React, capasitor?
-- **Backend**: Python probs
+- **Frontend**: React, capacitor?
+- **Backend**: Python probs - fast api and motor as odm
 - **Database**: MongoDB
 - **Authentication**: AWS?
 - **Deployment**: AWS?
