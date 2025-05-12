@@ -4,3 +4,6 @@ setup:
   curl -LsSf https://astral.sh/uv/install.sh | sh
   $HOME/.local/bin/uv venv
   uv sync
+
+run:
+  fastapi dev server.py 
