@@ -7,6 +7,7 @@ from api.routers.user import user_router
 from api.dependencies.mongo import lifespan
 
 app = FastAPI(lifespan=lifespan)
+
 app.include_router(auth_router)
 app.include_router(user_router)
 

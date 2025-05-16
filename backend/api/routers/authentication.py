@@ -9,9 +9,11 @@ from api.dependencies.mongo import get_database
 
 auth_router = APIRouter()
 
+COLLECTION = "users"
+
 @auth_router.post("/signup")
 async def create_user(data: UserAuth, db=Depends(get_database)):
-    collection = db["users"]
+    collection = db[COLLECTION]
     user = await collection.find_one({"$or": [{"email": data.email}, {"username": data.username}]})
     print(user)
     if user is not None:
@@ -30,7 +32,7 @@ async def create_user(data: UserAuth, db=Depends(get_database)):
 
 @auth_router.post("/login", response_model=TokenSchema)
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db=Depends(get_database)):
-    collection = db["users"]
+    collection = db[COLLECTION]
     user = await collection.find_one({"username": form_data.username})
     if user is None:
         raise HTTPException(
