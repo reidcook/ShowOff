@@ -1,8 +1,7 @@
-from uuid import uuid4
 from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from api.models.user import UserAuth
+from api.models.user import User
 from api.models.jwt import TokenSchema
 from api.utils import get_hashed_password, verify_password, create_refresh_token, create_access_token
 from api.dependencies.mongo import get_database
@@ -12,7 +11,7 @@ auth_router = APIRouter()
 COLLECTION = "users"
 
 @auth_router.post("/signup")
-async def create_user(data: UserAuth, db=Depends(get_database)):
+async def create_user(data: User, db=Depends(get_database)):
     collection = db[COLLECTION]
     user = await collection.find_one({"$or": [{"email": data.email}, {"username": data.username}]})
     print(user)
@@ -24,8 +23,7 @@ async def create_user(data: UserAuth, db=Depends(get_database)):
     user = {
         "username": data.username,
         "email": data.email,
-        "password": get_hashed_password(data.password),
-        "id": str(uuid4())
+        "password": get_hashed_password(data.password)
     }
     collection.insert_one(user)
     return user

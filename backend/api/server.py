@@ -13,7 +13,4 @@ app.include_router(user_router)
 
 @app.get("/")
 async def health():
-    import secrets
-    secret = secrets.token_hex(64)  # Generates a 128-character hex string (64 bytes)
-    print(secret)
     return {"status": "good!"}
