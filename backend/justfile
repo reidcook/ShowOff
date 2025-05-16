@@ -6,4 +6,4 @@ setup:
   uv sync
 
 run:
-  fastapi dev server.py 
+  fastapi dev api/server.py 
