@@ -1,5 +1,6 @@
+from fastapi import HTTPException
 import os
-from fastapi import HTTPException, FastAPI
+from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.server_api import ServerApi
@@ -26,4 +27,3 @@ async def get_database():
         raise HTTPException(status_code=500, detail="Database not initialized")
     else:
         return db
-
