@@ -13,7 +13,7 @@ user_router = APIRouter()
 
 COLLECTION = "projects"
 
-@user_router.get("/projects", response_model=Project)
+@user_router.get("/projects", response_model=list[Project])
 async def get_projects(user: SystemUser = Depends(get_current_user), db: AsyncIOMotorDatabase = Depends(get_database)):
-    projects: list[Project] = await db[COLLECTION].find({"owner": user.id})
+    projects: list[Project] = await db[COLLECTION].find({"owner": user.id}).to_list()
     return projects
