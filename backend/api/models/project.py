@@ -19,8 +19,12 @@ class Project(BaseModel):
     name: str
     description: str
     updates: list[Update] = Field(default_factory=list)
-    owner: str
+    owner: PyObjectId
 
     class Config:
         arbitrary_types_allowed = True
         populate_by_name = True
+
+class ProjectInput(BaseModel):
+    name: str
+    description: str

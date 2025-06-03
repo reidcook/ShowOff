@@ -41,7 +41,7 @@ async def get_current_user(token: str = Depends(reusable_auth), db=Depends(get_d
         )
     print(token_data)
     user: Union[dict[str, Any], None] = await db["users"].find_one({"email": token_data.sub})
-
+    print(user)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
