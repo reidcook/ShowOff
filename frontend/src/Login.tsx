@@ -1,14 +1,16 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState, type BaseSyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
     const submit = async () => {
         try {
-            const response = await fetch("http://localhost:8000/login", {
+            const response = await fetch("https://showoff-b95o.onrender.com/login", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -26,6 +28,7 @@ export default function Login() {
 
             localStorage.setItem('token', data.access_token)
             console.log(data)
+            navigate("/profile")
         }
         catch (err) {
             console.error("login error:", err)
@@ -50,6 +53,7 @@ export default function Login() {
                 <TextField 
                     label="password!!!!"
                     variant='outlined'
+                    type='password'
                     value={password}
                     size='medium'
                     sx={{width: "20%"}}

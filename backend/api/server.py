@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from api.routers.authentication import auth_router
-from api.routers.user import user_router
+from backend.api.routers.project import project_router
 from api.dependencies.mongo import lifespan
 
 origins = [
@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
-app.include_router(user_router)
+app.include_router(project_router)
 
 @app.get("/")
 async def health():

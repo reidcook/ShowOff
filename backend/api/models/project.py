@@ -24,7 +24,3 @@ class Project(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         populate_by_name = True
-
-class ProjectInput(BaseModel):
-    name: str
-    description: str
