@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from api.routers.authentication import auth_router
-from backend.api.routers.project import project_router
+from api.routers.project import project_router
 from api.dependencies.mongo import lifespan
 
 origins = [
