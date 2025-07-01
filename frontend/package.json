@@ -17,6 +17,7 @@
     "@mui/system": "^7.1.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",
+    "jwt-decode": "^4.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2"
