@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Button, IconButton, Paper, Avatar, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Avatar } from '@mui/material';
 import "./Profile.css"
 import { useEffect, useState } from 'react';
 import type { Project } from './Types/Project';
 import type { User } from './Types/User';
+import Tile from "./Tile";
 
 export default function Profile() {
 
@@ -20,6 +20,7 @@ export default function Profile() {
   const fetchData = async () => {
       await fetchProjects();
       await fetchUser();
+      setLoading(false);
     };
 
   const fetchProjects = async () => {
@@ -38,12 +39,10 @@ export default function Profile() {
       else{
         const data: Array<Project> = await res.json();
         setProjects(data);
-        setLoading(false);
       }
     } catch (error: any) {
       console.error("Failed to fetch projects: ", error);
       setError(error)
-      setLoading(false)
     }
   }
 
@@ -63,73 +62,54 @@ export default function Profile() {
       else{
         const data: User = await res.json();
         setUserInfo(data);
-        setLoading(false);
       }
     } catch (error: any) {
       console.error("Failed to fetch user: ", error);
       setError(error)
-      setLoading(false)
     }
   }
 
   if(!loading){
     return (
-      <div className='height-100 d-flex flex-column'>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-              Showoff
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-        <div className="container height-100">
-          <span>{userInfo?.username}</span>
-          <div className="row user-profile pt-2 text-center">
-            <div className="col height-100">
-              <Paper elevation={3} className='height-100' sx={{justifyItems: "center", padding: "10px", alignContent: "center"}}>
-                <Avatar alt="Remy Sharp" sx={{ width: 100, height: 100 }}>
-                  {userInfo?.username.charAt(0)}
-                </Avatar>
-              </Paper>
-            </div>
-            <div className="col-9 height-100">
-              <Paper elevation={3} className='height-100' sx={{justifyItems: "center", padding: "10px", alignContent: "center"}}>
-                {userInfo?.description ? userInfo.description : "No description provided"}
-              </Paper>
-            </div>
+        <div className="container height-100 mt-2">
+          <div className="row mt-2 text-center">
+            <Tile cols={3}>
+              <Avatar alt={userInfo?.username || "User"} sx={{ width: "150px", height: "150px", marginBottom: "1rem" }}>
+                {userInfo?.username?.charAt(0)}
+              </Avatar>
+              <span style={{fontSize: "32px"}}>{userInfo?.username}</span>
+            </Tile>
+            <Tile cols={9}>
+              {userInfo?.description ? userInfo.description : "No description provided"}
+            </Tile>
           </div>
           {/* List of projects */}
-          {projects.map((proj) => {
-            return (
-            <div className="row project user-profile pt-2">
-              <div className="col height-100">
-                <Paper elevation={3} className='height-100' sx={{justifyItems: "center", padding: "10px", alignContent: "center"}}>
+            {projects.map((proj) => (
+              <>
+              <div className="row mt-2">
+                <Tile key={proj.name} cols={12} style={{ minHeight: "100px" }}>
                   {proj.name}
-                </Paper>
+                </Tile>
               </div>
-            </div>)
-          })}
-          {/* Extra section added on after the projects array */}
-          <div className="row project user-profile pt-2">
-            <div className="col height-100">
-              <Paper elevation={3} className='height-100' sx={{justifyItems: "center", padding: "10px", alignContent: "center"}}>
+              <div className="row mt-2">
+                <Tile key={proj.name} cols={12} style={{ minHeight: "100px" }}>
+                  {proj.name}
+                </Tile>
+              </div>
+              <div className="row mt-2">
+                <Tile key={proj.name} cols={12} style={{ minHeight: "100px" }}>
+                  {proj.name}
+                </Tile>
+              </div>
+              </>
+            ))}
+            {/* Extra section added on after the projects array */}
+            <div className="row mt-2">
+              <Tile cols={12} style={{ minHeight: "100px" }}>
                 OTHER STUFF!!
-              </Paper>
+              </Tile>
             </div>
-          </div>
-          
         </div>
-      </div>
     );
   }
   else{
